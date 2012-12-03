@@ -1,5 +1,11 @@
 *.class
-
+# Output Files #
+target/*
+# IDE Files #
+.idea/*
+*.iml
+*.ipr
+*.iws
 # Package Files #
 *.jar
 *.war
