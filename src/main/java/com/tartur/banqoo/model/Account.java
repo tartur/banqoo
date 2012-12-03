@@ -1,5 +1,9 @@
 package com.tartur.banqoo.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 /**
@@ -9,10 +13,16 @@ import java.util.Date;
  * Time: 2:13 AM
  * To change this template use File | Settings | File Templates.
  */
+@Entity
+@XmlRootElement
 public class Account {
+    @Id
+    private Long id;
     private String name;
+    @ManyToOne
     private User owner;
     private Date creationDate = new Date();
+
 
 
 
