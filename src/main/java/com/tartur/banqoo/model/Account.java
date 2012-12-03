@@ -1,5 +1,7 @@
 package com.tartur.banqoo.model;
 
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: tartur
@@ -8,4 +10,10 @@ package com.tartur.banqoo.model;
  * To change this template use File | Settings | File Templates.
  */
 public class Account {
+    private String name;
+    private User owner;
+    private Date creationDate = new Date();
+
+
+
 }

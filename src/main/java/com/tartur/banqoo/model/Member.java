@@ -8,4 +8,11 @@ package com.tartur.banqoo.model;
  * To change this template use File | Settings | File Templates.
  */
 public class Member {
+    private User user;
+    private MemberRole role;
+
+
+    public static enum MemberRole {
+        Admin, Writer, Reader
+    }
 }

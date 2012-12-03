@@ -1,5 +1,9 @@
 package com.tartur.banqoo.model;
 
+import org.joda.time.LocalDate;
+
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: tartur
@@ -8,4 +12,10 @@ package com.tartur.banqoo.model;
  * To change this template use File | Settings | File Templates.
  */
 public class Operation {
+    private double amount;
+    private String label;
+    private Category category;
+    private User creator;
+    private LocalDate eventDate;
+
 }

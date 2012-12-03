@@ -1,5 +1,7 @@
 package com.tartur.banqoo.model;
 
+import java.util.Set;
+
 /**
  * Created with IntelliJ IDEA.
  * User: tartur
@@ -8,4 +10,6 @@ package com.tartur.banqoo.model;
  * To change this template use File | Settings | File Templates.
  */
 public class Category {
+    private String name;
+    private Set<Category> subcategories;
 }
