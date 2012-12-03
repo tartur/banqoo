@@ -1,7 +1,11 @@
 package com.tartur.banqoo.model;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -16,6 +20,7 @@ public class User {
     @Id
     private String username;
     private String password;
+    @Email
     private String emailAddress;
 
     public User() {

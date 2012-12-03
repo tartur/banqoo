@@ -2,6 +2,7 @@ package com.tartur.banqoo.service;
 
 import com.tartur.banqoo.model.Account;
 import com.tartur.banqoo.model.User;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -47,13 +48,13 @@ public class DataServiceTest extends UnitilsJUnit4 {
 
     @Test
     public void findByUsernameExistingUser() {
-        User u = sut.findUserByUsername("mock");
+        User u = sut.findUserByUsername("mockUser");
         assertThat(u).isNotNull();
     }
 
     @Test
     public void returnsNullWhenNoUserIsFoundByUsername() {
-        User u = sut.findUserByUsername("mock1");
+        User u = sut.findUserByUsername("mock1User");
         assertThat(u).isNull();
     }
 
@@ -71,20 +72,22 @@ public class DataServiceTest extends UnitilsJUnit4 {
 
     @Test
     public void updateExistingUser() {
-        User u = sut.findUserByUsername("mock");
+        User u = sut.findUserByUsername("mockUser");
         String oldPwd = u.getPassword();
         String newPwd = oldPwd + "1";
         u.setPassword(newPwd);
         sut.update(u);
-        User updated = sut.findUserByUsername("mock");
+        User updated = sut.findUserByUsername("mockUser");
         assertThat(updated.getPassword()).isEqualTo(newPwd);
     }
 
     @Test
     public void userCreateAnAccount() {
-        User u = sut.findUserByUsername("mock");
-        Account acc = new Account();
+        User u = sut.findUserByUsername("mockUser");
+        Account acc = new Account("mockAccount", u);
+        assertThat(acc.getId()).isNull();
         sut.create(acc);
+        assertThat(acc.getId()).isGreaterThan(0);
     }
 
 }

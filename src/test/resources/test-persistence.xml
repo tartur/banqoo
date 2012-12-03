@@ -10,7 +10,7 @@
             <property name="hibernate.connection.username" value="sa"/>
             <property name="hibernate.connection.password" value=""/>
             <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:banqoo"/>
-            <property name="hibernate.showSql" value="true"/>
+            <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
 </persistence>
