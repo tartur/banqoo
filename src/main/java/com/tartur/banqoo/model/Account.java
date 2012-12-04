@@ -1,10 +1,15 @@
 package com.tartur.banqoo.model;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,21 +22,29 @@ import java.util.Date;
 @XmlRootElement
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GenericGenerator(name="account_kgen" , strategy="increment")
+    @GeneratedValue(generator="account_kgen")
     private Long id;
     @NotNull
     private String name;
     @NotNull
     @ManyToOne
     private User owner;
+    @OneToMany(mappedBy = "account")
+    private Set<Member> team;
     private Date creationDate = new Date();
 
     public Account() {
+        this(null, null);
     }
 
     public Account(String name, User owner) {
         this.name = name;
         this.owner = owner;
+        team = new HashSet<>();
+        if (owner != null) {
+            add(new Member(owner, Member.MemberRole.Admin, this));
+        }
     }
 
     public String getName() {
@@ -42,28 +55,54 @@ public class Account {
         this.name = name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getOwner() {
         return owner;
     }
 
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public boolean add(Member member) {
+        return team.add(member);
+    }
+
+    public boolean remove(Member member) {
+        return team.remove(member);
+    }
+
+    public boolean containsInTeam(User user) {
+        return Collections2.transform(team, new Function<Member, User>() {
+            @Override
+            public User apply(Member member) {
+                return member == null ? null : member.getUser();
+            }
+        }).contains(user);
+    }
+
+    public Member.MemberRole getRole(User user) {
+        for (Member m : team) {
+            if (m != null && m.getUser().equals(user)) {
+                return m.getRole();
+            }
+        }
+        return null;
     }
 
     @Override

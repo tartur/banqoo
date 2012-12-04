@@ -1,8 +1,8 @@
 package com.tartur.banqoo.service;
 
 import com.tartur.banqoo.model.Account;
+import com.tartur.banqoo.model.Member;
 import com.tartur.banqoo.model.User;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,6 +11,8 @@ import org.unitils.dbunit.annotation.DataSet;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
+import java.util.prefs.Preferences;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
@@ -84,7 +86,10 @@ public class DataServiceTest extends UnitilsJUnit4 {
     @Test
     public void userCreateAnAccount() {
         User u = sut.findUserByUsername("mockUser");
-        Account acc = new Account("mockAccount", u);
+        Account acc = new Account("hisAccount", u);
+
+        assertThat(acc.containsInTeam(u)).isTrue();
+        assertThat(acc.getRole(u)).isEqualTo(Member.MemberRole.Admin);
         assertThat(acc.getId()).isNull();
         sut.create(acc);
         assertThat(acc.getId()).isGreaterThan(0);
