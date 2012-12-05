@@ -12,8 +12,6 @@ import org.unitils.dbunit.annotation.DataSet;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import java.util.prefs.Preferences;
-
 import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
 
@@ -30,6 +28,7 @@ public class DataServiceTest extends UnitilsJUnit4 {
 
     private static EntityManagerFactory emf;
     private DataService sut;
+    private User mockUser;
 
     @BeforeClass
     public static void setUpClass() {
@@ -40,6 +39,7 @@ public class DataServiceTest extends UnitilsJUnit4 {
     public void setUp() {
         sut = new DataService();
         sut.setEntityManagerFactory(emf);
+        mockUser = sut.findUserByUsername("mockUser");
     }
 
     @Test
@@ -50,8 +50,7 @@ public class DataServiceTest extends UnitilsJUnit4 {
 
     @Test
     public void findByUsernameExistingUser() {
-        User u = sut.findUserByUsername("mockUser");
-        assertThat(u).isNotNull();
+        assertThat(mockUser).isNotNull();
     }
 
     @Test
@@ -74,25 +73,43 @@ public class DataServiceTest extends UnitilsJUnit4 {
 
     @Test
     public void updateExistingUser() {
-        User u = sut.findUserByUsername("mockUser");
-        String oldPwd = u.getPassword();
+        String oldPwd = mockUser.getPassword();
         String newPwd = oldPwd + "1";
-        u.setPassword(newPwd);
-        sut.update(u);
+        mockUser.setPassword(newPwd);
+        sut.update(mockUser);
         User updated = sut.findUserByUsername("mockUser");
         assertThat(updated.getPassword()).isEqualTo(newPwd);
     }
 
     @Test
     public void userCreateAnAccount() {
-        User u = sut.findUserByUsername("mockUser");
-        Account acc = new Account("hisAccount", u);
-
-        assertThat(acc.containsInTeam(u)).isTrue();
-        assertThat(acc.getRole(u)).isEqualTo(Member.MemberRole.Admin);
+        Account acc = new Account("hisAccount", mockUser);
+        assertThat(acc.isTeamMember(mockUser)).isFalse();
         assertThat(acc.getId()).isNull();
-        sut.create(acc);
+
+        acc = sut.createAccount(acc);
+
         assertThat(acc.getId()).isGreaterThan(0);
+        assertThat(acc.isTeamMember(mockUser)).isTrue();
+        assertThat(acc.getRole(mockUser)).isEqualTo(Member.MemberRole.Admin);
+    }
+
+    @Test
+    public void findAnAccountByUserAndName() {
+        Account acc = sut.findAccountByOwnerAndName(mockUser, "mockAccount");
+        assertThat(acc).isNotNull();
+        assertThat(acc.getId()).isEqualTo(1);
+    }
+
+    @Test
+    public void returnsNullWhenAccountIsNotFound() {
+        Account acc = sut.findAccountByOwnerAndName(mockUser, "otherAccount");
+        assertThat(acc).isNull();
+    }
+
+    @Test
+    public void userLogOperationIntoAccount() {
+        //TODO
     }
 
 }

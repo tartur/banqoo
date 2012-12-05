@@ -4,8 +4,6 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -16,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-public class User {
+public class User implements Identifiable<String>{
     @Id
     private String username;
     private String password;
@@ -32,24 +30,34 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public String getUsername() {
+    @Override
+    public String toString() {
         return username;
     }
 
-    public String getPassword() {
-        return password;
+    @Override
+    public String getId() {
+        return getUsername();
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getUsername() {
+        return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
     public void setEmailAddress(String emailAddress) {

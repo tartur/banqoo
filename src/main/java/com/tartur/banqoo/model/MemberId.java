@@ -1,8 +1,6 @@
 package com.tartur.banqoo.model;
 
 import javax.persistence.Embeddable;
-import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 /**
@@ -12,11 +10,18 @@ import java.io.Serializable;
  * Time: 12:52 AM
  * To change this template use File | Settings | File Templates.
  */
+@Embeddable
 public class MemberId implements Serializable {
-    @ManyToOne
-    private User user;
-    @ManyToOne
-    private Account account;
+    String username;
+    Long accountId;
+
+    public MemberId() {
+    }
+
+    public MemberId(User user, Account account) {
+        this.username = user.getUsername();
+        this.accountId = account.getId();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -25,16 +30,24 @@ public class MemberId implements Serializable {
 
         MemberId memberId = (MemberId) o;
 
-        if (!account.equals(memberId.account)) return false;
-        if (!user.equals(memberId.user)) return false;
+        if (accountId != null ? !accountId.equals(memberId.accountId) : memberId.accountId != null) return false;
+        if (username != null ? !username.equals(memberId.username) : memberId.username != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = user.hashCode();
-        result = 31 * result + account.hashCode();
+        int result = username != null ? username.hashCode() : 0;
+        result = 31 * result + (accountId != null ? accountId.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "MemberId{" +
+                "username='" + username + '\'' +
+                ", accountId=" + accountId +
+                '}';
     }
 }

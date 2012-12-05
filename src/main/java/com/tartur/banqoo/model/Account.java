@@ -20,10 +20,10 @@ import java.util.Set;
  */
 @Entity
 @XmlRootElement
-public class Account {
+public class Account implements Identifiable<Long>{
     @Id
-    @GenericGenerator(name="account_kgen" , strategy="increment")
-    @GeneratedValue(generator="account_kgen")
+    @GenericGenerator(name = "account_kgen", strategy = "increment")
+    @GeneratedValue(generator = "account_kgen")
     private Long id;
     @NotNull
     private String name;
@@ -42,9 +42,6 @@ public class Account {
         this.name = name;
         this.owner = owner;
         team = new HashSet<>();
-        if (owner != null) {
-            add(new Member(owner, Member.MemberRole.Admin, this));
-        }
     }
 
     public String getName() {
@@ -55,6 +52,7 @@ public class Account {
         this.name = name;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
@@ -79,15 +77,25 @@ public class Account {
         this.creationDate = creationDate;
     }
 
-    public boolean add(Member member) {
+    /**
+     * Inserts the new member if it does not exist
+     * @param member
+     * @return true if the member was successfully added
+     */
+    public boolean put(Member member) {
         return team.add(member);
     }
 
+    /**
+     * Removes a member from the team
+     * @param member
+     * @return
+     */
     public boolean remove(Member member) {
         return team.remove(member);
     }
 
-    public boolean containsInTeam(User user) {
+    public boolean isTeamMember(User user) {
         return Collections2.transform(team, new Function<Member, User>() {
             @Override
             public User apply(Member member) {
@@ -120,5 +128,14 @@ public class Account {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", owner=" + owner +
+                '}';
     }
 }

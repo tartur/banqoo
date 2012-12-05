@@ -3,6 +3,8 @@
     <user userName="mockUser"  emailaddress="mock@test.mo"   password="password"/>
     <account id="1" name="mockAccount" creationDate="2012-12-01" owner_username="mockUser"/>
     <member role="Admin" account_id="1" user_username="mockUser"/>
+    <!--<account_member account_id="1" username="mockUser" user_username="mockUser"/>-->
+    <!--insert into Account_Member (Account_id, team_account_id, team_user_username) values (?, ?, ?)-->
 </dataset>
 
             <!--Static SQL for entity: com.tartur.banqoo.model.Member-->

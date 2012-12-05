@@ -12,13 +12,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@IdClass(MemberId.class)
 @XmlRootElement
-public class Member {
-    @Id
+public class Member implements Identifiable<MemberId>{
+    @EmbeddedId
+    private MemberId id;
+    @MapsId("username")
     @ManyToOne
     private User user;
-    @Id
+    @MapsId("accountId")
     @ManyToOne
     private Account account;
     @NotNull
@@ -30,9 +31,15 @@ public class Member {
     }
 
     public Member(User user, MemberRole role, Account account) {
+        id = new MemberId();
         this.user = user;
-        this.role = role;
         this.account = account;
+        this.role = role;
+    }
+
+    @Override
+    public MemberId getId() {
+        return id;
     }
 
     public User getUser() {
@@ -66,17 +73,25 @@ public class Member {
 
         Member member = (Member) o;
 
-        if (!account.equals(member.account)) return false;
-        if (!user.equals(member.user)) return false;
+        if (account != null ? !account.equals(member.account) : member.account != null) return false;
+        if (user != null ? !user.equals(member.user) : member.user != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = user.hashCode();
-        result = 31 * result + account.hashCode();
+        int result = user != null ? user.hashCode() : 0;
+        result = 31 * result + (account != null ? account.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", role=" + role +
+                '}';
     }
 
     public static enum MemberRole {
