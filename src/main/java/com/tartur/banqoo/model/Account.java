@@ -7,16 +7,17 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created with IntelliJ IDEA.
+ * Money account model class. It is not the user account on the application, but an account created by a user
+ * in order to do accounting job with it.
  * User: tartur
  * Date: 12/1/12
  * Time: 2:13 AM
- * To change this template use File | Settings | File Templates.
  */
 @Entity
 @XmlRootElement
@@ -84,6 +85,10 @@ public class Account implements Identifiable<Long>{
      */
     public boolean put(Member member) {
         return team.add(member);
+    }
+
+    public Set<Member> getTeam() {
+        return Collections.unmodifiableSet(team);
     }
 
     /**

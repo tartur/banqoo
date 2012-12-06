@@ -1,31 +1,29 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-    <user userName="mockUser"  emailaddress="mock@test.mo"   password="password"/>
+    <user userName="mockUser" emailaddress="mock@test.mo" password="password"/>
     <account id="1" name="mockAccount" creationDate="2012-12-01" owner_username="mockUser"/>
     <member role="Admin" account_id="1" user_username="mockUser"/>
-    <!--<account_member account_id="1" username="mockUser" user_username="mockUser"/>-->
-    <!--insert into Account_Member (Account_id, team_account_id, team_user_username) values (?, ?, ?)-->
 </dataset>
 
-            <!--Static SQL for entity: com.tartur.banqoo.model.Member-->
+        <!--Static SQL for entity: com.tartur.banqoo.model.Member-->
         <!--Version select: select account_id, user_username from Member where account_id =? and user_username =?-->
         <!--Snapshot select: select member_.account_id, member_.user_username, member_.role as role1_ from Member member_ where member_.account_id=? and member_.user_username=?-->
         <!--Insert 0: insert into Member (role, account_id, user_username) values (?, ?, ?)-->
         <!--Update 0: update Member set role=? where account_id=? and user_username=?-->
         <!--Delete 0: delete from Member where account_id=? and user_username=?-->
-            <!--Static SQL for entity: com.tartur.banqoo.model.Account-->
+        <!--Static SQL for entity: com.tartur.banqoo.model.Account-->
         <!--Version select: select id from Account where id =?-->
         <!--Snapshot select: select account_.id, account_.creationDate as creation2_2_, account_.name as name2_, account_.owner_username as owner4_2_ from Account account_ where account_.id=?-->
         <!--Insert 0: insert into Account (creationDate, name, owner_username, id) values (?, ?, ?, ?)-->
         <!--Update 0: update Account set creationDate=?, name=?, owner_username=? where id=?-->
         <!--Delete 0: delete from Account where id=?-->
-            <!--Static SQL for entity: com.tartur.banqoo.model.User-->
+        <!--Static SQL for entity: com.tartur.banqoo.model.User-->
         <!--Version select: select username from User where username =?-->
         <!--Snapshot select: select user_.username, user_.emailAddress as emailAdd2_0_, user_.password as password0_ from User user_ where user_.username=?-->
         <!--Insert 0: insert into User (emailAddress, password, username) values (?, ?, ?)-->
         <!--Update 0: update User set emailAddress=?, password=? where username=?-->
         <!--Delete 0: delete from User where username=?-->
-            <!--Static SQL for collection: com.tartur.banqoo.model.Account.team-->
+        <!--Static SQL for collection: com.tartur.banqoo.model.Account.team-->
         <!--Row insert: insert into Account_Member (Account_id, team_account_id, team_user_username) values (?, ?, ?)-->
         <!--Row update: update Account_Member set team_account_id=?, team_user_username=? where Account_id=? and team_account_id=? and team_user_username=?-->
         <!--Row delete: delete from Account_Member where Account_id=? and team_account_id=? and team_user_username=?-->

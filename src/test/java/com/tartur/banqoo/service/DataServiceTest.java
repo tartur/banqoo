@@ -3,6 +3,7 @@ package com.tartur.banqoo.service;
 import com.tartur.banqoo.model.Account;
 import com.tartur.banqoo.model.Member;
 import com.tartur.banqoo.model.User;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,13 +15,13 @@ import javax.persistence.Persistence;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 /**
- * Created with IntelliJ IDEA.
+ * Integration Test class for model persistence.
  * User: tartur
  * Date: 12/2/12
  * Time: 2:18 AM
- * To change this template use File | Settings | File Templates.
  */
 @DataSet
 public class DataServiceTest extends UnitilsJUnit4 {
@@ -99,6 +100,8 @@ public class DataServiceTest extends UnitilsJUnit4 {
         Account acc = sut.findAccountByOwnerAndName(mockUser, "mockAccount");
         assertThat(acc).isNotNull();
         assertThat(acc.getId()).isEqualTo(1);
+        assertThat(acc.getTeam()).isNotNull().hasSize(1);
+        assertThat(acc.getRole(mockUser)).isEqualTo(Member.MemberRole.Admin);
     }
 
     @Test
@@ -109,7 +112,7 @@ public class DataServiceTest extends UnitilsJUnit4 {
 
     @Test
     public void userLogOperationIntoAccount() {
-        //TODO
+        fail("Not implemented yet");
     }
 
 }

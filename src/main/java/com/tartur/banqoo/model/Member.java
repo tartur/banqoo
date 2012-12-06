@@ -5,11 +5,13 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Created with IntelliJ IDEA.
+ * Member class models a user membership within an account management team.
+ * So a User could have only one membership by account, and could have many related memberships.
+ * A membership contains the user role, is he the Administrator or a writer or just a reader.
+ * A member is though identified by the user and the account.
  * User: tartur
  * Date: 12/1/12
  * Time: 2:15 AM
- * To change this template use File | Settings | File Templates.
  */
 @Entity
 @XmlRootElement

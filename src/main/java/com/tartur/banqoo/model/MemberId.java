@@ -4,11 +4,11 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * Created with IntelliJ IDEA.
+ * This class models the Member class composite identifier.
  * User: tartur
  * Date: 12/4/12
  * Time: 12:52 AM
- * To change this template use File | Settings | File Templates.
+ * @see Member
  */
 @Embeddable
 public class MemberId implements Serializable {
