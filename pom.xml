@@ -93,7 +93,13 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.4.3</version>
+            <version>1.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>1.0-SP4</version>
+            <scope>provided</scope>
         </dependency>
         <!-- Test Dependencies -->
         <dependency>
@@ -121,9 +127,21 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.skyscreamer</groupId>
             <artifactId>jsonassert</artifactId>
             <version>1.1.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jglue</groupId>
+            <artifactId>cdi-unit</artifactId>
+            <version>1.0.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -152,6 +170,11 @@
             <name>Java.net Maven 2 Repository</name>
             <url>http://download.java.net/maven/2</url>
             <layout>default</layout>
+        </repository>
+        <repository>
+            <id>jglue-releases</id>
+            <name>jglue-releases</name>
+            <url>http://jglue.org/releases</url>
         </repository>
     </repositories>
 

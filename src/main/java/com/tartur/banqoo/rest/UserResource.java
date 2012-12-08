@@ -1,9 +1,12 @@
 package com.tartur.banqoo.rest;
 
 import com.tartur.banqoo.model.User;
+import com.tartur.banqoo.service.DataService;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 /**
@@ -21,12 +24,15 @@ import javax.ws.rs.Produces;
  * Date: 12/6/12
  * Time: 12:35 AM
  */
-@Path("/user")
+@Path("/users")
 @Produces("application/json")
-public class UserController {
+public class UserResource {
+    @Inject
+    private DataService dataService;
 
     @GET
+//    @Path("/{username}")
     public User get() {
-        return new User("tartur", "coucou", "tartur@gmail.com");
+        return dataService.findUserByUsername("tartur");
     }
 }

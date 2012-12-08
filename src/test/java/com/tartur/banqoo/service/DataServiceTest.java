@@ -3,7 +3,6 @@ package com.tartur.banqoo.service;
 import com.tartur.banqoo.model.Account;
 import com.tartur.banqoo.model.Member;
 import com.tartur.banqoo.model.User;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -28,7 +27,7 @@ public class DataServiceTest extends UnitilsJUnit4 {
 
 
     private static EntityManagerFactory emf;
-    private DataService sut;
+    private JpaDataService sut;
     private User mockUser;
 
     @BeforeClass
@@ -38,7 +37,7 @@ public class DataServiceTest extends UnitilsJUnit4 {
 
     @Before
     public void setUp() {
-        sut = new DataService();
+        sut = new JpaDataService();
         sut.setEntityManagerFactory(emf);
         mockUser = sut.findUserByUsername("mockUser");
     }
